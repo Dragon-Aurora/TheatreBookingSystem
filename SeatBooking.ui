@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>SeatBooking</class>
+ <widget class="QMainWindow" name="SeatBooking">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Seat Booking</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="Bookingframe">
@@ -284,7 +284,7 @@
   <customwidget>
    <class>SeatLabel</class>
    <extends>QLabel</extends>
-   <header>seatlabel</header>
+   <header>SeatLabel</header>
   </customwidget>
  </customwidgets>
  <resources/>

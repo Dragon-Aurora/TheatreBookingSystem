@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Records</class>
+ <widget class="QMainWindow" name="Records">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Records</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame">
@@ -34,8 +34,8 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>83</width>
-       <height>231</height>
+       <width>90</width>
+       <height>235</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -163,7 +163,7 @@
      <x>0</x>
      <y>0</y>
      <width>439</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

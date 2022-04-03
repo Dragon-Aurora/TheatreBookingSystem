@@ -11,14 +11,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(185, 163)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_SeatInfo(object):
+    def setupUi(self, SeatInfo):
+        SeatInfo.setObjectName("SeatInfo")
+        SeatInfo.resize(185, 187)
+        self.centralwidget = QtWidgets.QWidget(SeatInfo)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 161, 108))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 161, 128))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -63,32 +63,32 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.horizontalLayout_3.addWidget(self.lineEdit_3)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 185, 21))
+        SeatInfo.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(SeatInfo)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 185, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        SeatInfo.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(SeatInfo)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        SeatInfo.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(SeatInfo)
+        QtCore.QMetaObject.connectSlotsByName(SeatInfo)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, SeatInfo):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_4.setText(_translate("MainWindow", "Customer:"))
-        self.label_2.setText(_translate("MainWindow", "Phone No:"))
-        self.label.setText(_translate("MainWindow", "Cust Type:"))
-        self.label_3.setText(_translate("MainWindow", "Seat ID:"))
+        SeatInfo.setWindowTitle(_translate("SeatInfo", "Seat Information"))
+        self.label_4.setText(_translate("SeatInfo", "Customer:"))
+        self.label_2.setText(_translate("SeatInfo", "Phone No:"))
+        self.label.setText(_translate("SeatInfo", "Cust Type:"))
+        self.label_3.setText(_translate("SeatInfo", "Seat ID:"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    SeatInfo = QtWidgets.QMainWindow()
+    ui = Ui_SeatInfo()
+    ui.setupUi(SeatInfo)
+    SeatInfo.show()
     sys.exit(app.exec_())

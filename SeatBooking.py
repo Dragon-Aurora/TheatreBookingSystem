@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(383, 368)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_SeatBooking(object):
+    def setupUi(self, SeatBooking):
+        SeatBooking.setObjectName("SeatBooking")
+        SeatBooking.resize(383, 368)
+        self.centralwidget = QtWidgets.QWidget(SeatBooking)
         self.centralwidget.setObjectName("centralwidget")
         self.Bookingframe = QtWidgets.QFrame(self.centralwidget)
         self.Bookingframe.setGeometry(QtCore.QRect(10, 10, 361, 311))
@@ -117,45 +117,45 @@ class Ui_MainWindow(object):
         self.Book_PushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.Book_PushButton.setObjectName("Book_PushButton")
         self.BookingLayout.addWidget(self.Book_PushButton)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        SeatBooking.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(SeatBooking)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 383, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        SeatBooking.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(SeatBooking)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        SeatBooking.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(SeatBooking)
+        QtCore.QMetaObject.connectSlotsByName(SeatBooking)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, SeatBooking):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_10.setText(_translate("MainWindow", "Date:"))
-        self.Date1_radioButton.setText(_translate("MainWindow", "12/11/23"))
-        self.Date2_radioButton.setText(_translate("MainWindow", "15/11/23"))
-        self.A1C1.setText(_translate("MainWindow", "TextLabel"))
-        self.C1C1.setText(_translate("MainWindow", "TextLabel"))
-        self.A2C2.setText(_translate("MainWindow", "TextLabel"))
-        self.B2C2.setText(_translate("MainWindow", "TextLabel"))
-        self.B1C1.setText(_translate("MainWindow", "TextLabel"))
-        self.Front_Label.setText(_translate("MainWindow", "Front"))
-        self.A3C3.setText(_translate("MainWindow", "TextLabel"))
-        self.B3C3.setText(_translate("MainWindow", "TextLabel"))
-        self.C3C3.setText(_translate("MainWindow", "TextLabel"))
-        self.C2C2.setText(_translate("MainWindow", "TextLabel"))
-        self.label_12.setText(_translate("MainWindow", "Time"))
-        self.label_13.setText(_translate("MainWindow", "Customer"))
-        self.Book_PushButton.setText(_translate("MainWindow", "Book"))
-from seatlabel import SeatLabel
+        SeatBooking.setWindowTitle(_translate("SeatBooking", "Seat Booking"))
+        self.label_10.setText(_translate("SeatBooking", "Date:"))
+        self.Date1_radioButton.setText(_translate("SeatBooking", "12/11/23"))
+        self.Date2_radioButton.setText(_translate("SeatBooking", "15/11/23"))
+        self.A1C1.setText(_translate("SeatBooking", "TextLabel"))
+        self.C1C1.setText(_translate("SeatBooking", "TextLabel"))
+        self.A2C2.setText(_translate("SeatBooking", "TextLabel"))
+        self.B2C2.setText(_translate("SeatBooking", "TextLabel"))
+        self.B1C1.setText(_translate("SeatBooking", "TextLabel"))
+        self.Front_Label.setText(_translate("SeatBooking", "Front"))
+        self.A3C3.setText(_translate("SeatBooking", "TextLabel"))
+        self.B3C3.setText(_translate("SeatBooking", "TextLabel"))
+        self.C3C3.setText(_translate("SeatBooking", "TextLabel"))
+        self.C2C2.setText(_translate("SeatBooking", "TextLabel"))
+        self.label_12.setText(_translate("SeatBooking", "Time"))
+        self.label_13.setText(_translate("SeatBooking", "Customer"))
+        self.Book_PushButton.setText(_translate("SeatBooking", "Book"))
+from SeatLabel import SeatLabel
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    SeatBooking = QtWidgets.QMainWindow()
+    ui = Ui_SeatBooking()
+    ui.setupUi(SeatBooking)
+    SeatBooking.show()
     sys.exit(app.exec_())

@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(439, 397)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_Records(object):
+    def setupUi(self, Records):
+        Records.setObjectName("Records")
+        Records.resize(439, 397)
+        self.centralwidget = QtWidgets.QWidget(Records)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 10, 421, 341))
@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.frame)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 83, 231))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 90, 235))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -85,36 +85,36 @@ class Ui_MainWindow(object):
         self.radioButton_4 = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
         self.radioButton_4.setObjectName("radioButton_4")
         self.DateLayout.addWidget(self.radioButton_4)
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 439, 21))
+        Records.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(Records)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 439, 22))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        Records.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(Records)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        Records.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Records)
+        QtCore.QMetaObject.connectSlotsByName(Records)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Records):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Search"))
-        self.label_2.setText(_translate("MainWindow", "Performance"))
-        self.label_3.setText(_translate("MainWindow", "Customer"))
-        self.label_4.setText(_translate("MainWindow", "Seat ID"))
-        self.label_5.setText(_translate("MainWindow", "Time"))
-        self.label_11.setText(_translate("MainWindow", "Date:"))
-        self.radioButton_3.setText(_translate("MainWindow", "12/11/23"))
-        self.radioButton_4.setText(_translate("MainWindow", "15/11/23"))
+        Records.setWindowTitle(_translate("Records", "Records"))
+        self.label.setText(_translate("Records", "Search"))
+        self.label_2.setText(_translate("Records", "Performance"))
+        self.label_3.setText(_translate("Records", "Customer"))
+        self.label_4.setText(_translate("Records", "Seat ID"))
+        self.label_5.setText(_translate("Records", "Time"))
+        self.label_11.setText(_translate("Records", "Date:"))
+        self.radioButton_3.setText(_translate("Records", "12/11/23"))
+        self.radioButton_4.setText(_translate("Records", "15/11/23"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Records = QtWidgets.QMainWindow()
+    ui = Ui_Records()
+    ui.setupUi(Records)
+    Records.show()
     sys.exit(app.exec_())

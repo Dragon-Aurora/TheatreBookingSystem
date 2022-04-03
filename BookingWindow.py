@@ -1,3 +1,4 @@
+from SeatLabel import *
 from SeatBooking import *
 from SeatInfoWindow import *
 from PyQt5.QtCore import *
@@ -26,16 +27,16 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
         print("hi")
-        # Puts out a signal when the seats are double clicked
-        self.A1C1(self.A1C1_clicked)
-        self.A2C2.mouseDoubleClickEvent(self.A2C2_clicked)
-        self.A3C3.mouseDoubleClickEvent.connect(self.A3C3_clicked)
-        self.B1C1.mouseDoubleClickEvent.connect(self.B1C1_clicked)
-        self.B2C2.mouseDoubleClickEvent.connect(self.B2C2_clicked)
-        self.B3C3.mouseDoubleClickEvent.connect(self.B3C3_clicked)
-        self.C1C1.mouseDoubleClickEvent.connect(self.C1C1_clicked)
-        self.C2C2.mouseDoubleClickEvent.connect(self.C2C2_clicked)
-        self.C3C3.mouseDoubleClickEvent.connect(self.C3C3_clicked)
+        # Puts out a signal when the seats are clicked
+        self.A1C1.clicked.connect(self.A1C1_clicked)
+        self.A2C2.clicked.connect(self.A2C2_clicked)
+        self.A3C3.clicked.connect(self.A3C3_clicked)
+        self.B1C1.clicked.connect(self.B1C1_clicked)
+        self.B2C2.clicked.connect(self.B2C2_clicked)
+        self.B3C3.clicked.connect(self.B3C3_clicked)
+        self.C1C1.clicked.connect(self.C1C1_clicked)
+        self.C2C2.clicked.connect(self.C2C2_clicked)
+        self.C3C3.clicked.connect(self.C3C3_clicked)
 
     def A1C1_clicked(self):
         self.seatClicked(1, 1)
