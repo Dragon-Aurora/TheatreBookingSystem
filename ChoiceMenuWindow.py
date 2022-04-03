@@ -39,13 +39,13 @@ class ChoiceMenuWindow(QMainWindow, Ui_MainWindow):
     def bookingButtonClicked(self):
         """Display the booking window - bring it to the front"""
         print("hi Booking")
-        self.recordsWindow.show()
-        self.recordsWindow.raise_()
-        self.recordsWindow.setWindowState(Qt.WindowActive)
+        self.bookingWindow.show()
+        self.bookingWindow.raise_()
+        self.bookingWindow.setWindowState(Qt.WindowActive)
 
     def recordButtonClicked(self):
         """Display the Record Search window - bring it to the front"""
         print("Hi records")
-        self.bookingWindow.show()
-        self.bookingWindow.raise_()
-        self.bookingWindow.setWindowState(Qt.WindowActive)
+        self.recordsWindow.show()
+        self.recordsWindow.raise_()
+        self.recordsWindow.setWindowState(Qt.WindowActive)
