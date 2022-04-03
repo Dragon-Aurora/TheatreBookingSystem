@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'O:\Computer Science\Transfer Project\UI\Records.ui'
+# Form implementation generated from reading ui file 'Records.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Records(object):
-    def setupUi(self, RecordsMenu):
-        RecordsMenu.setObjectName("RecordsMenu")
-        RecordsMenu.resize(439, 397)
-        self.centralwidget = QtWidgets.QWidget(RecordsMenu)
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(439, 397)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 10, 421, 341))
@@ -85,36 +85,36 @@ class Ui_Records(object):
         self.radioButton_4 = QtWidgets.QRadioButton(self.horizontalLayoutWidget)
         self.radioButton_4.setObjectName("radioButton_4")
         self.DateLayout.addWidget(self.radioButton_4)
-        RecordsMenu.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(RecordsMenu)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 439, 21))
         self.menubar.setObjectName("menubar")
-        RecordsMenu.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(RecordsMenu)
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
-        RecordsMenu.setStatusBar(self.statusbar)
+        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(RecordsMenu)
-        QtCore.QMetaObject.connectSlotsByName(RecordsMenu)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, RecordsMenu):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        RecordsMenu.setWindowTitle(_translate("RecordsMenu", "RecordsMenu"))
-        self.label.setText(_translate("RecordsMenu", "Search"))
-        self.label_2.setText(_translate("RecordsMenu", "Performance"))
-        self.label_3.setText(_translate("RecordsMenu", "Customer"))
-        self.label_4.setText(_translate("RecordsMenu", "Seat ID"))
-        self.label_5.setText(_translate("RecordsMenu", "Time"))
-        self.label_11.setText(_translate("RecordsMenu", "Date:"))
-        self.radioButton_3.setText(_translate("RecordsMenu", "12/11/23"))
-        self.radioButton_4.setText(_translate("RecordsMenu", "15/11/23"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "Search"))
+        self.label_2.setText(_translate("MainWindow", "Performance"))
+        self.label_3.setText(_translate("MainWindow", "Customer"))
+        self.label_4.setText(_translate("MainWindow", "Seat ID"))
+        self.label_5.setText(_translate("MainWindow", "Time"))
+        self.label_11.setText(_translate("MainWindow", "Date:"))
+        self.radioButton_3.setText(_translate("MainWindow", "12/11/23"))
+        self.radioButton_4.setText(_translate("MainWindow", "15/11/23"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    RecordsMenu = QtWidgets.QMainWindow()
-    ui = Ui_Records()
-    ui.setupUi(RecordsMenu)
-    RecordsMenu.show()
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
     sys.exit(app.exec_())

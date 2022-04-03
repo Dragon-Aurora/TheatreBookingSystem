@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'O:\Computer Science\Transfer Project\UI\Menu.ui'
+# Form implementation generated from reading ui file 'ChoiceMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(180, 205)
+        MainWindow.resize(199, 200)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 160, 141))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 177, 141))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.MenuLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.MenuLayout.setContentsMargins(0, 0, 0, 0)
@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.MenuLayout.addWidget(self.RecordsButton)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 180, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 199, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -55,7 +55,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Theatre Booking System"))
         self.label.setText(_translate("MainWindow", "Theatre Booking System"))
         self.BookingButton.setText(_translate("MainWindow", "Seat Booking"))
         self.RecordsButton.setText(_translate("MainWindow", "Exsisting Records"))
