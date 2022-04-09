@@ -174,7 +174,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="Time_comboBox"/>
+       <widget class="QComboBox" name="Performance_comboBox"/>
       </item>
       <item>
        <spacer name="verticalSpacer_2">
