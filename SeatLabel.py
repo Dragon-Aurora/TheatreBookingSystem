@@ -27,7 +27,9 @@ class SeatLabel(QLabel):
     def setRowColumn(self, r, c):
         self.row = r
         self.column = c
+        # Set label
         self.setText(str(r) + ' ' + str(c))
+        # Give the label an outline
         self.setFrameShape(QFrame.Panel)
         self.setFrameShadow(QFrame.Sunken)
         self.setLineWidth(3)
