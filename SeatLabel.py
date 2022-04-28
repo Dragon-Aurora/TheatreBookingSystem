@@ -13,14 +13,27 @@ class SeatLabel(QLabel):
 
     """
 
-    # create a qt signal object
-    clicked = pyqtSignal()
+    # create a qt signal
+    # See: https://doc.bccnsoft.com/docs/PyQt5/signals_slots.html
+    clicked = pyqtSignal(int, int, name="clicked")
+
+    # seat position
+    row = 0
+    column = 0
 
     def __init__(self, first_label):
         QLabel.__init__(self, first_label)
+
+    def setRowColumn(self, r, c):
+        self.row = r
+        self.column = c
+        self.setText(str(r) + ' ' + str(c))
+        self.setFrameShape(QFrame.Panel)
+        self.setFrameShadow(QFrame.Sunken)
+        self.setLineWidth(3)
 
     def mousePressEvent(self, event):
         #emit the signal
         #to capture the signal use variable.clicked.connect(slotfunction)
         #Slotfunction will get called when you click on a seat label
-        self.clicked.emit()
+        self.clicked.emit(self.row, self.column)

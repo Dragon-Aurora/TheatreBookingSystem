@@ -24,56 +24,49 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
         self.seatInfoWindow = SeatInfoWindow(self)
 
+        self.dummydata()
+
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
         # Puts out a signal when the seats are clicked
-        self.A1C1.clicked.connect(self.A1C1_clicked)
-        self.A2C2.clicked.connect(self.A2C2_clicked)
-        self.A3C3.clicked.connect(self.A3C3_clicked)
-        self.B1C1.clicked.connect(self.B1C1_clicked)
-        self.B2C2.clicked.connect(self.B2C2_clicked)
-        self.B3C3.clicked.connect(self.B3C3_clicked)
-        self.C1C1.clicked.connect(self.C1C1_clicked)
-        self.C2C2.clicked.connect(self.C2C2_clicked)
-        self.C3C3.clicked.connect(self.C3C3_clicked)
+        for row in range(0, 10):
+            for column in range(0, 20):
+                seat = SeatLabel(self.gridLayoutWidget)
+                seat.setEnabled(True)
+                seat.setAlignment(QtCore.Qt.AlignCenter)
+                seat.setObjectName("row " + str(row) + "col " + str(column))
+                self.SeatLayout.addWidget(seat, row, column, 1, 1)
+                seat.setRowColumn(row, column)
+                seat.clicked.connect(self.seatClicked)
 
-        self.Cust_comboBox.activated(self.Customer_ComboBox)
-        self.Performance_comboBox_comboBox.activated(self.Performance_ComboBox)
+        self.Cust_comboBox.currentIndexChanged.connect(self.Customer_ComboBox)
+        self.Performance_comboBox.currentIndexChanged.connect(self.Performance_ComboBox)
 
+        self.Book_PushButton.clicked.connect(self.Booking_Save)
 
-    def A1C1_clicked(self):
-        self.seatClicked(1, 1)
+    def dummydata(self):
+        # Fill the combo boxes with data from the SQL database
+        self.Cust_comboBox.addItem("hi")
+        self.Cust_comboBox.addItem("hi1")
+        self.Cust_comboBox.addItem("hi2")
 
-    def A2C2_clicked(self):
-        self.seatClicked(1,2)
-
-    def A3C3_clicked(self):
-        self.seatClicked(1,3)
-
-    def B1C1_clicked(self):
-        self.seatClicked(2,1)
-
-    def B2C2_clicked(self):
-        self.seatClicked(2,2)
-
-    def B3C3_clicked(self):
-        self.seatClicked(2,3)
-
-    def C1C1_clicked(self):
-        self.seatClicked(3,1)
-
-    def C2C2_clicked(self):
-        self.seatClicked(3,2)
-
-    def C3C3_clicked(self):
-        self.seatClicked(3,3)
+        self.Performance_comboBox.insertItem(0, "index0")
+        self.Performance_comboBox.insertItem(1, "index1")
 
     def seatClicked(self, row, column):
-        print(row,column)
+        self.displaySeatInformation(row, column)
 
-    def Performance_ComboBox(self)
+    def displaySeatInformation(self, row, column):
+        print(row, column)
+        self.seatInfoWindow.loadDisplay(row, column)
+        self.seatInfoWindow.show()
 
+    def Performance_ComboBox(self, index):
+        print("performance ", index)
 
-    def Customer_ComboBox(self):
+    def Customer_ComboBox(self, index):
+        print("customer ", index)
 
+    def Booking_Save(self):
+        print("Saved")

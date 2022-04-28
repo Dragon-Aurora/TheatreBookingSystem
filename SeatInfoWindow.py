@@ -18,5 +18,11 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
         """
         super(SeatInfoWindow, self).__init__()
         self.setupUi(self)
-    #def loaddisplay(self):
+
+    def loadDisplay(self, row, column):
+        print("load display ", row, column)
+        self.customer.setText("Damian")
+        self.phoneNumber.setText("01403 273173")
+        self.customerType.setText("Parent")
+        self.seatId.setText(str(row) + " " + str(column))
 
