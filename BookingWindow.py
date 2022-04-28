@@ -24,9 +24,9 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
         self.seatInfoWindow = SeatInfoWindow(self)
 
+
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
-        print("hi")
         # Puts out a signal when the seats are clicked
         self.A1C1.clicked.connect(self.A1C1_clicked)
         self.A2C2.clicked.connect(self.A2C2_clicked)
@@ -37,6 +37,10 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.C1C1.clicked.connect(self.C1C1_clicked)
         self.C2C2.clicked.connect(self.C2C2_clicked)
         self.C3C3.clicked.connect(self.C3C3_clicked)
+
+        self.Cust_comboBox.activated(self.Customer_ComboBox)
+        self.Performance_comboBox_comboBox.activated(self.Performance_ComboBox)
+
 
     def A1C1_clicked(self):
         self.seatClicked(1, 1)
@@ -67,3 +71,9 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def seatClicked(self, row, column):
         print(row,column)
+
+    def Performance_ComboBox(self)
+
+
+    def Customer_ComboBox(self):
+

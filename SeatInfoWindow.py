@@ -18,3 +18,5 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
         """
         super(SeatInfoWindow, self).__init__()
         self.setupUi(self)
+    #def loaddisplay(self):
+
