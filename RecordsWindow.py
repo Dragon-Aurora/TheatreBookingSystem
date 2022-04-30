@@ -22,4 +22,9 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
-        print("hi")
+        # connect the combo-boxes and buttons (signals and slots)
+        self.Customer_Combo.currentIndexChanged.connect(self.Cust_Combo)
+        self.Performance_Combo.currentIndexChanged.connect(self.Perf_Combo)
+        self.SeatID_Combo.currentIndexChanged.connect(self.seatID_Combo)
+        self.Time_Combo.currentIndexChanged.connect(self.time_Combo)
+

@@ -51,7 +51,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         # connect the combo-boxes and buttons (signals and slots)
         self.Cust_comboBox.currentIndexChanged.connect(self.Customer_ComboBox)
         self.Performance_comboBox.currentIndexChanged.connect(self.Performance_ComboBox)
-
+        #Connects booking button
         self.Book_PushButton.clicked.connect(self.Booking_Save)
 
     def dummydata(self):
