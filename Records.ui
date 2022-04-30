@@ -66,7 +66,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="Performance_Combo"/>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_2"/>
+       <widget class="QComboBox" name="Customer_Combo"/>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
@@ -92,7 +92,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_3"/>
+       <widget class="QComboBox" name="SeatID_Combo"/>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -105,11 +105,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox_4"/>
+       <widget class="QComboBox" name="Time_Combo"/>
       </item>
      </layout>
     </widget>
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="RecordsTable">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -140,14 +140,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_3">
+       <widget class="QRadioButton" name="DateRadio12_11_23">
         <property name="text">
          <string>12/11/23</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QRadioButton" name="radioButton_4">
+       <widget class="QRadioButton" name="DateRadio15_11_23">
         <property name="text">
          <string>15/11/23</string>
         </property>
