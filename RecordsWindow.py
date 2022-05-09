@@ -2,7 +2,7 @@ from Records import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
+from SQLServerAccess import *
 
 class RecordsWindow(QMainWindow, Ui_Records):
     """ Records inherits from the UI 'Records.ui' python implementation.
@@ -28,3 +28,10 @@ class RecordsWindow(QMainWindow, Ui_Records):
         self.SeatID_Combo.currentIndexChanged.connect(self.seatID_Combo)
         self.Time_Combo.currentIndexChanged.connect(self.time_Combo)
 
+    def RecordsData(self):
+        BookingSQL = "SELECT * FROM tBooking"
+        #dump all the data into the table
+
+                rowCount = len(cursor)
+
+        RecordsTable

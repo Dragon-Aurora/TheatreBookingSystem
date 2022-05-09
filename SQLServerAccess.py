@@ -48,12 +48,24 @@ class SQL_Info():
             #print(e)
 
         self.cnxn.close()
+        self.cnxn = pyodbc.connect(cs)
 
-    """def Data(self): #Retreives data from SQL server and separates into categories
-        CustSQL = "SELECT * from tCustomer
+        # query the table for the data in a row
+        Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
+        Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats")
+        Perf_cursor = self.cnxn.execute("SELECT * FROM tPerformance")
 
+        self.updateTable(self.cnxn, Booking_cursor, "SELECT COUNT() FROM tBooking")
 
-    def populateTable(self): #Retreives data from SQL server and separates into categories
+        self.cnxn.close()
+
+    def Data(self): #Retreives data from SQL server and separates into categories
+        CustSQL = "SELECT * from tCustomer"
+        PerfSQL = "SELECT * FROM tPerformance"
+        BookingSQL = "SELECT * FROM tBooking"
+        SeatsSQL = "SELECT * FROM tSeats"
+
+    """def populateTable(self): #Retreives data from SQL server and separates into categories
         # open database
         statementSQL = "SELECT * from tBooking"
         try:

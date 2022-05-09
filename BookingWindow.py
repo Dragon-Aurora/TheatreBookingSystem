@@ -4,7 +4,7 @@ from SeatInfoWindow import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
+from SQLServerAccess import *
 
 class BookingWindow(QMainWindow, Ui_SeatBooking):
     """ Records inherits from the UI 'Records.ui' python implementation.
@@ -54,12 +54,14 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         #Connects booking button
         self.Book_PushButton.clicked.connect(self.Booking_Save)
 
-    def dummydata(self):
+    def BookingData(self):
         # Fill the combo boxes with data from the SQL database
+        Cust_Names = "SELECT ..."
         self.Cust_comboBox.addItem("hi")
         self.Cust_comboBox.addItem("hi1")
         self.Cust_comboBox.addItem("hi2")
 
+        Perf_Times = "SELECT Performance_Times FROM tPerformance"
         self.Performance_comboBox.insertItem(0, "index0")
         self.Performance_comboBox.insertItem(1, "index1")
 
