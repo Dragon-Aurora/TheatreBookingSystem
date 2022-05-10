@@ -32,6 +32,18 @@ class RecordsWindow(QMainWindow, Ui_Records):
         BookingSQL = "SELECT * FROM tBooking"
         #dump all the data into the table
 
-                rowCount = len(cursor)
+        """rowCount = len(cursor)
 
-        RecordsTable
+        RecordsTable"""
+
+    def Cust_Combo(self):
+        print("combo cust")
+
+    def Perf_Combo(self):
+        print("combo perf")
+
+    def seatID_Combo(self):
+        print("seats combo")
+
+    def time_Combo(self):
+        print("time combo")

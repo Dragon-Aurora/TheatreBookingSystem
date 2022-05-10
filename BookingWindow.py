@@ -24,7 +24,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
         self.seatInfoWindow = SeatInfoWindow(self)
 
-        self.dummydata()
+        self.BookingData()
 
 
     def connectSignalsSlots(self):
@@ -56,7 +56,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def BookingData(self):
         # Fill the combo boxes with data from the SQL database
-        Cust_Names = "SELECT ..."
+        Cust_Names = "SELECT "
         self.Cust_comboBox.addItem("hi")
         self.Cust_comboBox.addItem("hi1")
         self.Cust_comboBox.addItem("hi2")

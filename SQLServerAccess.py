@@ -54,8 +54,12 @@ class SQL_Info():
         Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
         Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats")
         Perf_cursor = self.cnxn.execute("SELECT * FROM tPerformance")
+        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
 
         self.updateTable(self.cnxn, Booking_cursor, "SELECT COUNT() FROM tBooking")
+        self.updateTable(self.cnxn, Seats_cursor, "SELECT COUNT() FROM tSeats")
+        self.updateTable(self.cnxn, Perf_cursor, "SELECT COUNT() FROM tPerformance")
+        self.updateTable(self.cnxn, Cust_cursor, "SELECT COUNT() FROM tCustomer")
 
         self.cnxn.close()
 
