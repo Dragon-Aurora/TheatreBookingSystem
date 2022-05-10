@@ -36,7 +36,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         cursor = sqlServerDb.excute(BookingSQL)
         # extract all data using cursor and put in UI
         Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
-        sqlServerDb.close();
+        sqlServerDb.close()
 
         """rowCount = len(cursor)
 
@@ -44,12 +44,20 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def Cust_Combo(self):
         print("combo cust")
+        CustItems = "SELECT First_Name, Surname FROM tCustomer"
+        self.Customer_Combo.addItems(CustItems)
 
     def Perf_Combo(self):
         print("combo perf")
+        PerfIDItems = "SELECT PerformanceID FROM tPerformance"
+        self.Performance_Combo.addItems(PerfIDItems)
 
     def seatID_Combo(self):
         print("seats combo")
+        SeatIDItems = "SELECT SeatID FROM tSeats"
+        self.SeatID_Combo.addItems(SeatIDItems)
 
     def time_Combo(self):
         print("time combo")
+        TimeItems = "SELECT Performance_Time FROM tPerformance"
+        self.Time_Combo.addItems(TimeItems)
