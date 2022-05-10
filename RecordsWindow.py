@@ -35,7 +35,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         sqlServerDb.open()
         cursor = sqlServerDb.excute(BookingSQL)
         # extract all data using cursor and put in UI
-
+        Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
         sqlServerDb.close();
 
         """rowCount = len(cursor)

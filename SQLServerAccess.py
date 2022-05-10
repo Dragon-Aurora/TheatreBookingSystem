@@ -52,9 +52,9 @@ class SQL_Info():
 
         # query the table for the data in a row
         Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
-        Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats").fetch
-        Perf_cursor = self.cnxn.execute("SELECT * FROM tPerformance")
-        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
+        Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats").fetchall()
+        Perf_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
+        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer").fetchall()
 
         self.updateTable(self.cnxn, Booking_cursor, "SELECT COUNT() FROM tBooking")
         self.updateTable(self.cnxn, Seats_cursor, "SELECT COUNT() FROM tSeats")
