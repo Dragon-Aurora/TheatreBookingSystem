@@ -52,7 +52,7 @@ class SQL_Info():
 
         # query the table for the data in a row
         Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
-        Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats")
+        Seats_cursor = self.cnxn.execute("SELECT * FROM tSeats").fetch
         Perf_cursor = self.cnxn.execute("SELECT * FROM tPerformance")
         Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
 

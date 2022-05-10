@@ -30,7 +30,13 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def RecordsData(self):
         BookingSQL = "SELECT * FROM tBooking"
-        #dump all the data into the table
+        # dump all the data into the table
+        # call SQLServerAccess to get data from db
+        sqlServerDb.open()
+        cursor = sqlServerDb.excute(BookingSQL)
+        # extract all data using cursor and put in UI
+
+        sqlServerDb.close();
 
         """rowCount = len(cursor)
 
