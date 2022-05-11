@@ -4,6 +4,9 @@ from BookingWindow import *
 College = False
 cs = ""
 
+# https://github.com/mkleehammer/pyodbc/wiki/Connecting-to-SQL-Server-from-Windows
+# https://docs.microsoft.com/en-us/sql/connect/python/pyodbc/python-sql-driver-pyodbc?view=sql-server-ver15
+# Try commenting out Trusted_Connection
 if College:
     cs = (
         "Driver={SQL Server};"  # deprecated
