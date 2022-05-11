@@ -24,6 +24,18 @@ else:
         "Trusted_Connection=yes;"
     )
 
+"""
+The Following is to create the tBooking Table:
+
+    CREATE TABLE tBooking(
+        BookingID int primary key,
+        SeatID varchar(1) foreign key REFERENCES tSeats(SeatsID),
+        CustomerID int foreign key REFERENCES tCustomer(CustomerID),
+        PerformanceID int foreign key REFERENCES tPerformace(PerformanceID)
+    );
+
+
+"""
 
 class SQLServerAccess:
     def __init__(self):
