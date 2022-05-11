@@ -4,7 +4,8 @@ from SeatInfoWindow import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from SQLServerAccess import *
+import SQLServerAccess
+
 
 class BookingWindow(QMainWindow, Ui_SeatBooking):
     """ Records inherits from the UI 'Records.ui' python implementation.
@@ -19,13 +20,13 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         Initialises the UI.
         """
         super(BookingWindow, self).__init__()
+        self.db_connection = None
         self.setupUi(self)
         self.connectSignalsSlots()
 
         self.seatInfoWindow = SeatInfoWindow(self)
 
         self.BookingData()
-
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work.
@@ -51,20 +52,21 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         # connect the combo-boxes and buttons (signals and slots)
         self.Cust_comboBox.currentIndexChanged.connect(self.Customer_ComboBox)
         self.Performance_comboBox.currentIndexChanged.connect(self.Performance_ComboBox)
-        #Connects booking button
+        # Connects booking button
         self.Book_PushButton.clicked.connect(self.Booking_Save)
 
     def BookingData(self):
         BookingSQL = "SELECT * FROM tBooking"
         # dump all the data into the table
         # call SQLServerAccess to get data from db
-        sqlServerDb.open()
-        cursor = sqlServerDb.excute(BookingSQL)
+        self.db_connection = SQLServerAccess.SQLServerAccess()
+        self.db_connection.open()
         # extract all data using cursor and put in UI
-        Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
-        Performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
-        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
-        sqlServerDb.close()
+        Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
+        Performance_cursor = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
+        SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
+        Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")
+        self.db_connection.close()
 
     def seatClicked(self, row, column):
         """When the SealLabel is pressed this method is called with the row and column of the seat"""
@@ -86,4 +88,11 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def Booking_Save(self):
         print("Saved")
-        #INSERT new values into the booking table
+        # INSERT new values into the booking table
+
+
+if __name__ == "__main__":
+    import sys
+
+    test = BookingWindow()
+    print("fini finum")

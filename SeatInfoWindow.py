@@ -2,6 +2,7 @@ from SeatInfo import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from SQLServerAccess import *
 
 
 class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
@@ -20,7 +21,12 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
         self.setupUi(self)
 
     def SQLData(self):
-        booking_cursor = self.
+        self.cnxn.open()
+        booking_cursor = self.cnxn.execute("SELECT * FROM tBooking").fetchall()
+        customer_cursor = self.cnxn.execute("SELECT * FROM tCustomer").fetchall()
+        performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
+        seatsID_cursor = self.cnxn.execute("SELECT * FROM tSeatsID").fetchall()
+        self.cnxn.close()
 
     def loadDisplay(self, row, column):
         print("load display ", row, column)

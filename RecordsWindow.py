@@ -17,6 +17,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         Initialises the UI.
         """
         super(RecordsWindow, self).__init__()
+        self.db_connection = SQLServerAccess()
         self.setupUi(self)
         self.connectSignalsSlots()
 
@@ -32,13 +33,13 @@ class RecordsWindow(QMainWindow, Ui_Records):
         BookingSQL = "SELECT * FROM tBooking"
         # dump all the data into the table
         # call SQLServerAccess to get data from db
-        sqlServerDb.open()
+        self.db_connection.open()
         # extract all data using cursor and put in UI
-        Booking_cursor = self.cnxn.execute(BookingSQL).fetchall()
-        Performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
-        SeatID_cursor = self.cnxn.execute("SELECT * FROM tSeats").fetchall()
-        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
-        sqlServerDb.close()
+        Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
+        Performance_cursor = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
+        SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
+        Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")
+        self.db_connection.close()
 
         """rowCount = len(cursor)
 

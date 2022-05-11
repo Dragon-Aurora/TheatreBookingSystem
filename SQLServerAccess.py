@@ -1,7 +1,6 @@
 import pyodbc as pyodbc
 from BookingWindow import *
 
-
 College = False
 cs = ""
 
@@ -22,13 +21,15 @@ else:
         "Trusted_Connection=yes;"
     )
 
-class SQL_Info():
-    def __init__(self, parent=None):
+
+class SQLServerAccess:
+    def __init__(self):
         """ Constructor
         """
-# "UID=COLLYERS\21DixonSE86;"
-# "pwd=galaxy"
-
+        # "UID=COLLYERS\21DixonSE86;"
+        # "pwd=galaxy"
+        self.cnxn = None
+        """
         statementSQL = "SELECT * from tSeats"
         try:
             self.cnxn = pyodbc.connect(cs)
@@ -62,8 +63,29 @@ class SQL_Info():
         self.updateTable(self.cnxn, Cust_cursor, "SELECT COUNT() FROM tCustomer")
 
         self.cnxn.close()
+        """
 
-    def Data(self): #Retreives data from SQL server and separates into categories
+    def open(self):
+        try:
+            self.cnxn = pyodbc.connect(cs)
+            print("Connected")
+
+        except pyodbc.DatabaseError as err:
+            print("Error: ")
+            print(err)
+            exit(1)
+
+    def close(self):
+        self.cnxn.close()
+
+    def execute(self, statement_SQL):
+        if self.cnxn is not None:
+            cursor = self.cnxn.cursor()
+            cursor.execute(statement_SQL)
+            return cursor
+        return None
+
+    def Data(self):  # Retreives data from SQL server and separates into categories
         CustSQL = "SELECT * from tCustomer"
         PerfSQL = "SELECT * FROM tPerformance"
         BookingSQL = "SELECT * FROM tBooking"
@@ -89,5 +111,6 @@ class SQL_Info():
 
 if __name__ == "__main__":
     import sys
-    test = SQL_Info()
+
+    test = SQLServerAccess()
     print("fini finum")
