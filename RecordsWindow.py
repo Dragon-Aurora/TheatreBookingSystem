@@ -33,11 +33,11 @@ class RecordsWindow(QMainWindow, Ui_Records):
         # dump all the data into the table
         # call SQLServerAccess to get data from db
         sqlServerDb.open()
-        cursor = sqlServerDb.excute(BookingSQL)
         # extract all data using cursor and put in UI
-        Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
+        Booking_cursor = self.cnxn.execute(BookingSQL).fetchall()
         Performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
         SeatID_cursor = self.cnxn.execute("SELECT * FROM tSeats").fetchall()
+        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
         sqlServerDb.close()
 
         """rowCount = len(cursor)

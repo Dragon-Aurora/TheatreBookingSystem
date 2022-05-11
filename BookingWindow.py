@@ -55,15 +55,16 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.Book_PushButton.clicked.connect(self.Booking_Save)
 
     def BookingData(self):
-        # Fill the combo boxes with data from the SQL database
-        Cust_Names = "SELECT "
-        self.Cust_comboBox.addItem("hi")
-        self.Cust_comboBox.addItem("hi1")
-        self.Cust_comboBox.addItem("hi2")
-
-        Perf_Times = "SELECT Performance_Times FROM tPerformance"
-        self.Performance_comboBox.insertItem(0, "index0")
-        self.Performance_comboBox.insertItem(1, "index1")
+        BookingSQL = "SELECT * FROM tBooking"
+        # dump all the data into the table
+        # call SQLServerAccess to get data from db
+        sqlServerDb.open()
+        cursor = sqlServerDb.excute(BookingSQL)
+        # extract all data using cursor and put in UI
+        Booking_cursor = self.cnxn.execute("SELECT * from tBooking").fetchall()
+        Performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
+        Cust_cursor = self.cnxn.execute("SELECT * FROM tCustomer")
+        sqlServerDb.close()
 
     def seatClicked(self, row, column):
         """When the SealLabel is pressed this method is called with the row and column of the seat"""
@@ -77,9 +78,12 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def Performance_ComboBox(self, index):
         print("performance ", index)
+        self.Performance_comboBox.addItems("SELECT Performance_Time FROM tPerformance")
 
     def Customer_ComboBox(self, index):
         print("customer ", index)
+        self.Cust_comboBox.addItems("SELECT First_name, Surname FROM tCustomer")
 
     def Booking_Save(self):
         print("Saved")
+        #INSERT new values into the booking table

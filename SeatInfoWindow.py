@@ -19,10 +19,13 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
         super(SeatInfoWindow, self).__init__()
         self.setupUi(self)
 
+    def SQLData(self):
+        booking_cursor = self.
+
     def loadDisplay(self, row, column):
         print("load display ", row, column)
+        #Information relating to the specific seatID used is to be displayed
         self.customer.setText("Damian")
         self.phoneNumber.setText("01403 273173")
         self.customerType.setText("Parent")
         self.seatId.setText(str(row) + " " + str(column))
-
