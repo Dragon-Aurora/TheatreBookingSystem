@@ -10,6 +10,11 @@ cs = ""
 #
 # The scripts on the Microsoft website are not correct for installing the ODBC drivers
 # on Ubuntu 20.04. See install_odbc for notes on workarounds.
+#
+# The SQL server needs to be configured for SQL Server authentication and the following needs to be checked
+# and configured if not for remote access (firewall, sql tcp/ip port)
+#  - https://social.technet.microsoft.com/wiki/contents/articles/1533.how-to-enable-remote-connections-on-sql-server.aspx
+
 if College:
     cs = (
         "Driver={SQL Server};"  # deprecated
