@@ -26,7 +26,7 @@ if College:
     )
 else:
     cs = (
-        "Driver={ODBC Driver 18 for SQL Server};"  # SQL server 2008 to 2019
+        "Driver={ODBC Driver 17 for SQL Server};"  # SQL server 2008 to 2019
         "Server=MSI-SUSIE;"
         "Database=21DixonSE86;"
         "Trusted_Connection=yes;"
