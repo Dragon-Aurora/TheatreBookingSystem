@@ -7,6 +7,9 @@ cs = ""
 # https://github.com/mkleehammer/pyodbc/wiki/Connecting-to-SQL-Server-from-Windows
 # https://docs.microsoft.com/en-us/sql/connect/python/pyodbc/python-sql-driver-pyodbc?view=sql-server-ver15
 # Try commenting out Trusted_Connection
+#
+# The scripts on the Microsoft website are not correct for installing the ODBC drivers
+# on Ubuntu 20.04. See install_odbc for notes on workarounds.
 if College:
     cs = (
         "Driver={SQL Server};"  # deprecated
@@ -18,7 +21,7 @@ if College:
     )
 else:
     cs = (
-        "Driver={ODBC Driver 17 for SQL Server};"  # SQL server 2008 to 2019
+        "Driver={ODBC Driver 18 for SQL Server};"  # SQL server 2008 to 2019
         "Server=MSI-SUSIE;"
         "Database=21DixonSE86;"
         "Trusted_Connection=yes;"
