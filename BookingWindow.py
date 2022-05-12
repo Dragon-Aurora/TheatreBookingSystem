@@ -62,10 +62,16 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.db_connection = SQLServerAccess.SQLServerAccess()
         self.db_connection.open()
         # extract all data using cursor and put in UI
-        Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
+        """ Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
         Performance_cursor = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
         SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
-        Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")
+        Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")"""
+
+        SQL_Perf = self.db_connection.execute("SELECT Performance_Time FROM tPerformance").fetchall()
+        for item in SQL_Perf:
+            item = str(item)
+            self.Performance_comboBox.addItems(item)
+
         self.db_connection.close()
 
     def seatClicked(self, row, column):
@@ -80,7 +86,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def Performance_ComboBox(self, index):
         print("performance ", index)
-        self.Performance_comboBox.addItems("SELECT Performance_Time FROM tPerformance")
 
     def Customer_ComboBox(self, index):
         print("customer ", index)
