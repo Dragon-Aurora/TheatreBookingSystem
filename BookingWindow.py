@@ -69,8 +69,8 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
         SQL_Perf = self.db_connection.execute("SELECT Performance_Time FROM tPerformance").fetchall()
         for item in SQL_Perf:
-            item = str(item)
-            self.Performance_comboBox.addItems(item)
+            value = str(item)
+            self.Performance_comboBox.addItem(value)
 
         self.db_connection.close()
 
