@@ -76,7 +76,15 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
             # Format the value for adding to the combobox
             value = performanceTime + " " + performanceDate
             self.Performance_comboBox.addItem(value)
+        self.db_connection.close()
 
+        self.db_connection.open()
+        SQL_Cust = self.db_connection.execute("SELECT * FROM tCustomer").fetchall()
+        for item in SQL_Cust:
+            FirstName = item[1]
+            Surname = item[2]
+            fullname = FirstName+" "+Surname
+            self.Cust_comboBox.addItem(fullname)
         self.db_connection.close()
 
     def seatClicked(self, row, column):
@@ -94,7 +102,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def Customer_ComboBox(self, index):
         print("customer ", index)
-        self.Cust_comboBox.addItems("SELECT First_name, Surname FROM tCustomer")
 
     def Booking_Save(self):
         print("Saved")
