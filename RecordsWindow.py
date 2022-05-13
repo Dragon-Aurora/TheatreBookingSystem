@@ -27,7 +27,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         self.Customer_Combo.currentIndexChanged.connect(self.Cust_Combo)
         self.Performance_Combo.currentIndexChanged.connect(self.Perf_Combo)
         self.SeatID_Combo.currentIndexChanged.connect(self.seatID_Combo)
-        self.Time_Combo.currentIndexChanged.connect(self.time_Combo)
+        self.CustType_Combo.currentIndexChanged.connect(self.custtype_Combo)
 
     def RecordsData(self):
         BookingSQL = "SELECT * FROM tBooking"
@@ -60,7 +60,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         SeatIDItems = "SELECT SeatID FROM tSeats"
         self.SeatID_Combo.addItems(SeatIDItems)
 
-    def time_Combo(self):
+    def custtype_Combo(self):
         print("time combo")
-        TimeItems = "SELECT Performance_Time FROM tPerformance"
-        self.Time_Combo.addItems(TimeItems)
+        CustTypeItems = "SELECT Performance_Time FROM tPerformance"
+        self.CustType_Combo.addItems(CustTypeItems)
