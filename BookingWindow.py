@@ -67,9 +67,14 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
         Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")"""
 
-        SQL_Perf = self.db_connection.execute("SELECT Performance_Time FROM tPerformance").fetchall()
+        SQL_Perf = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
         for item in SQL_Perf:
-            value = str(item)
+            # Get the Time of the performance - the index 1 is the second column which is Performance_Time
+            performanceTime = item[1].strftime('%H:%M')
+            # Get the date of the performance - third column Performance_Date
+            performanceDate = str(item[2])
+            # Format the value for adding to the combobox
+            value = performanceTime + " " + performanceDate
             self.Performance_comboBox.addItem(value)
 
         self.db_connection.close()
