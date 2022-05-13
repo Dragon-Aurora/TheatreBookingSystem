@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>439</width>
-    <height>410</height>
+    <width>750</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>421</width>
-      <height>341</height>
+      <width>731</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -33,9 +33,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
-       <width>90</width>
-       <height>235</height>
+       <y>14</y>
+       <width>151</width>
+       <height>501</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -69,6 +69,19 @@
        <widget class="QComboBox" name="Performance_Combo"/>
       </item>
       <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Customer</string>
@@ -80,6 +93,19 @@
       </item>
       <item>
        <widget class="QComboBox" name="Customer_Combo"/>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
@@ -95,9 +121,22 @@
        <widget class="QComboBox" name="SeatID_Combo"/>
       </item>
       <item>
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Time</string>
+         <string>Customer Type</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -105,55 +144,19 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="Time_Combo"/>
+       <widget class="QComboBox" name="CustType_Combo"/>
       </item>
      </layout>
     </widget>
     <widget class="QTableWidget" name="RecordsTable">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>170</x>
        <y>10</y>
-       <width>301</width>
-       <height>261</height>
+       <width>551</width>
+       <height>511</height>
       </rect>
      </property>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>280</y>
-       <width>301</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="DateLayout">
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>Date:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="DateRadio12_11_23">
-        <property name="text">
-         <string>12/11/23</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="DateRadio15_11_23">
-        <property name="text">
-         <string>15/11/23</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </widget>
   </widget>
@@ -162,8 +165,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>439</width>
-     <height>22</height>
+     <width>750</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
