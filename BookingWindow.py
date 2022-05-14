@@ -60,9 +60,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
                 # place the Seat in the grid at row column
                 self.SeatLayout.addWidget(seat, row, column, 1, 1)
 
-        # connect the combo-boxes and buttons (signals and slots)
-        self.Cust_comboBox.currentIndexChanged.connect(self.Customer_ComboBox)
-        self.Performance_comboBox.currentIndexChanged.connect(self.Performance_ComboBox)
         # Connects booking button
         self.Book_PushButton.clicked.connect(self.Booking_Save)
 
@@ -111,12 +108,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.seatInfoWindow.loadDisplay(row, column)
         self.seatInfoWindow.show()
 
-    def Performance_ComboBox(self, index):
-        print("performance ", index)
-
-    def Customer_ComboBox(self, index):
-        print("customer ", index)
-
     def Booking_Save(self):
         print("Saved")
         self.maxBookingID = self.maxBookingID + 1
@@ -135,6 +126,8 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         firstname = name[0]
         surname = name[1]
         SQLCust = "SELECT CustomerID FROM tCustomer WHERE First_Name = '" + firstname + "', Surname = '" + surname + "'"
+
+        #Need to add the SeatID to the statement below
         SQLBooking = "INSERT INTO tBooking VALUES (" + ID + "," + SQLPerf + "," + SQLCust + ")"
         self.db_connection.open()
         self.db_connection.execute(SQLBooking)
