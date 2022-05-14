@@ -101,6 +101,9 @@ class SQLServerAccess:
     def close(self):
         self.cnxn.close()
 
+    def commit(self):
+        self.cnxn.commit()
+
     def execute(self, statement_SQL):
         if self.cnxn is not None:
             cursor = self.cnxn.cursor()
