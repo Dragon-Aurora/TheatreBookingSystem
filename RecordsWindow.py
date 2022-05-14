@@ -33,7 +33,6 @@ class RecordsWindow(QMainWindow, Ui_Records):
     def RecordsData(self):
         # The database is opened and a single query is executed then the database is closed.
         # Executing a subsequent query before close and open does not seem to work.
-
         BookingSQL = "SELECT * FROM tBooking"
         # dump all the data into the table
         # call SQLServerAccess to get data from db
@@ -77,12 +76,54 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def Cust_Combo(self):
         print("combo cust")
+        #Update table so that the data in it displays all the bookings that customer has made
+        CustText = self.Customer_Combo.currentText()
+        name = CustText.split(" ")
+        firstname = name[0]
+        surname = name[1]
+        SQLStatement = "SELECT * FROM tBooking WHERE CustomerID =(SELECT CustomerID FROM tCustomer WHERE First_Name = "+firstname+", Surname = "+surname
+        self.db_connection.open()
+        # extract all data using cursor and put in UI
+        BookingCustName_cursor = self.db_connection.execute(SQLStatement).fetchall()
+        for item in BookingCustName_cursor:
+            self.RecordsTable.update(item)
+        self.db_connection.close()
 
     def Perf_Combo(self):
         print("combo perf")
+        #Update table so that the data in it displays all the bookings that performance has
+        PerfText = self.Performance_Combo.currentText()
+        performances = PerfText.split(" ")
+        time = performances[0]
+        date = performances[1]
+        SQLStatement = "SELECT * FROM tBooking WHERE PerformanceID=(SELECT PerformanceID FROM tPerformance WHERE Performance_Time="+time+",Performance_Date = " + date
+        self.db_connection.open()
+        # extract all data using cursor and put in UI
+        Performance_cursor = self.db_connection.execute(SQLStatement).fetchall()
+        for item in Performance_cursor:
+            self.RecordsTable.update(item)
+        self.db_connection.close()
 
     def seatID_Combo(self):
         print("seats combo")
+        #Update table so that the data in it displays all the bookings that Seat has
+        SeatIDText = self.CustType_Combo.currentText()
+        SQLStatement = "SELECT * FROM tBooking WHERE CustomerID=(SELECT CustomerID FROM tCustomer WHERE Customer_Type="+SeatIDText
+        self.db_connection.open()
+        # extract all data using cursor and put in UI
+        SeatID_cursor = self.db_connection.execute(SQLStatement).fetchall()
+        for item in SeatID_cursor:
+            self.RecordsTable.update(item)
+        self.db_connection.close()
 
     def custType_Combo(self):
         print("time combo")
+        #Update table so that the data in it displays all the bookings that customer type has
+        CustTypeText = self.CustType_Combo.currentText()
+        SQLStatement = "SELECT * FROM tBooking WHERE CustomerID=(SELECT CustomerID FROM tCustomer WHERE Customer_Type="+CustTypeText
+        self.db_connection.open()
+        # extract all data using cursor and put in UI
+        CustType_cursor = self.db_connection.execute(SQLStatement).fetchall()
+        for item in CustType_cursor:
+            self.RecordsTable.update(item)
+        self.db_connection.close()
