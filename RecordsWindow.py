@@ -20,6 +20,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         self.db_connection = SQLServerAccess()
         self.setupUi(self)
         self.connectSignalsSlots()
+        self.RecordsData()
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
@@ -27,9 +28,12 @@ class RecordsWindow(QMainWindow, Ui_Records):
         self.Customer_Combo.currentIndexChanged.connect(self.Cust_Combo)
         self.Performance_Combo.currentIndexChanged.connect(self.Perf_Combo)
         self.SeatID_Combo.currentIndexChanged.connect(self.seatID_Combo)
-        self.CustType_Combo.currentIndexChanged.connect(self.custtype_Combo)
+        self.CustType_Combo.currentIndexChanged.connect(self.custType_Combo)
 
     def RecordsData(self):
+        # The database is opened and a single query is executed then the database is closed.
+        # Executing a subsequent query before close and open does not seem to work.
+
         BookingSQL = "SELECT * FROM tBooking"
         # dump all the data into the table
         # call SQLServerAccess to get data from db
@@ -37,7 +41,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         # extract all data using cursor and put in UI
         Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
         for item in Booking_cursor:
-
+            self.RecordsTable.update(item)
         self.db_connection.close()
 
         self.db_connection.open()
@@ -56,7 +60,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
         for item in SeatID_cursor:
             SeatID = item[0]
-            self.SeatID_Combo.addItem(SeatID)
+            self.SeatID_Combo.addItem(str(SeatID))
         self.db_connection.close()
 
         self.db_connection.open()
@@ -66,28 +70,19 @@ class RecordsWindow(QMainWindow, Ui_Records):
             Surname = item[2]
             fullname = FirstName+" "+Surname
             self.Customer_Combo.addItem(fullname)
+
+            CustType = item[5]
+            self.CustType_Combo.addItem(CustType)
         self.db_connection.close()
-
-        """rowCount = len(cursor)
-
-        RecordsTable"""
 
     def Cust_Combo(self):
         print("combo cust")
-        CustItems = "SELECT First_Name, Surname FROM tCustomer"
-        self.Customer_Combo.addItems(CustItems)
 
     def Perf_Combo(self):
         print("combo perf")
-        PerfIDItems = "SELECT PerformanceID FROM tPerformance"
-        self.Performance_Combo.addItems(PerfIDItems)
 
     def seatID_Combo(self):
         print("seats combo")
-        SeatIDItems = "SELECT SeatID FROM tSeats"
-        self.SeatID_Combo.addItems(SeatIDItems)
 
-    def custtype_Combo(self):
+    def custType_Combo(self):
         print("time combo")
-        CustTypeItems = "SELECT Performance_Time FROM tPerformance"
-        self.CustType_Combo.addItems(CustTypeItems)
