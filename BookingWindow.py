@@ -22,11 +22,11 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         super(BookingWindow, self).__init__()
         self.db_connection = None
         self.setupUi(self)
-        self.connectSignalsSlots()
-
         self.seatInfoWindow = SeatInfoWindow(self)
-
         self.BookingData()
+        self.CustData()
+        self.PerfData()
+        self.connectSignalsSlots()
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work.
@@ -67,6 +67,8 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
         Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")"""
 
+    def PerfData(self):
+        self.db_connection.open()
         SQL_Perf = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
         for item in SQL_Perf:
             # Get the Time of the performance - the index 1 is the second column which is Performance_Time
@@ -78,6 +80,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
             self.Performance_comboBox.addItem(value)
         self.db_connection.close()
 
+    def CustData(self):
         self.db_connection.open()
         SQL_Cust = self.db_connection.execute("SELECT * FROM tCustomer").fetchall()
         for item in SQL_Cust:
