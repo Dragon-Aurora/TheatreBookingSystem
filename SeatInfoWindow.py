@@ -31,6 +31,7 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
     def loadDisplay(self, row, column):
         print("load display ", row, column)
         #Information relating to the specific seatID used is to be displayed
+        seatID = (row*20)+column
         self.customer.setText("Damian")
         self.phoneNumber.setText("01403 273173")
         self.customerType.setText("Parent")

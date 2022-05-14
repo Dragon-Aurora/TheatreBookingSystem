@@ -4,8 +4,7 @@ from SeatInfoWindow import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import SQLServerAccess
-
+import SQLServerA
 
 class BookingWindow(QMainWindow, Ui_SeatBooking):
     """ Records inherits from the UI 'Records.ui' python implementation.
@@ -22,11 +21,23 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         super(BookingWindow, self).__init__()
         self.db_connection = None
         self.setupUi(self)
+        self.maxBookingID = self.SeatMaxID()
         self.seatInfoWindow = SeatInfoWindow(self)
         self.BookingData()
         self.CustData()
         self.PerfData()
         self.connectSignalsSlots()
+
+    def SeatMaxID(self):
+        MaxID = -1
+        self.db_connection.open()
+        cursor = self.db_connection.execute("SELECT * FROM tBooking").fetchall()
+        for cur in cursor:
+            id = cur[0]
+            if id > MaxID:
+                MaxID = id
+        self.db_connection.close()
+        return MaxID
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work.
@@ -108,7 +119,27 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def Booking_Save(self):
         print("Saved")
-        # INSERT new values into the booking table
+        self.maxBookingID = self.maxBookingID + 1
+        ID = self.maxBookingID
+        ID = str(ID)
+
+        PerfData = self.Performance_comboBox.currentText()
+        CustData = self.Cust_comboBox.currentText()
+
+        performances = PerfData.split(" ")
+        time = performances[0]
+        date = performances[1]
+        SQLPerf = "SELECT PerformanceID FROM tPerformance WHERE Performance_Time = '" + time + "',Performance_Date = '" + date + "'"
+
+        name = CustData.split(" ")
+        firstname = name[0]
+        surname = name[1]
+        SQLCust = "SELECT CustomerID FROM tCustomer WHERE First_Name = '" + firstname + "', Surname = '" + surname + "'"
+        SQLBooking = "INSERT INTO tBooking VALUES (" + ID + "," + SQLPerf + "," + SQLCust + ")"
+        self.db_connection.open()
+        self.db_connection.execute(SQLBooking)
+        self.db_connection.commit()
+        self.db_connection.close()
 
 
 if __name__ == "__main__":
