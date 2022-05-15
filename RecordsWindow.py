@@ -76,8 +76,6 @@ class RecordsWindow(QMainWindow, Ui_Records):
             fullname = FirstName+" "+Surname
             self.Customer_Combo.addItem(fullname)
 
-            CustType = item[5]
-            self.CustType_Combo.addItem(CustType)
         self.db_connection.close()
 
     def Cust_Combo(self):
@@ -128,7 +126,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
         print("time combo")
         #Update table so that the data in it displays all the bookings that customer type has
         CustTypeText = self.CustType_Combo.currentText()
-        SQLStatement = "SELECT * FROM tBooking WHERE CustomerID=(SELECT CustomerID FROM tCustomer WHERE Customer_Type='"+CustTypeText+"')"
+        SQLStatement = "SELECT * FROM tBooking WHERE Customer_Type='"+CustTypeText+"'"
         self.db_connection.open()
         # extract all data using cursor and put in UI
         print(SQLStatement)
