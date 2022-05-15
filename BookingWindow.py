@@ -206,7 +206,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         SeatId = self.seatIdent(self.selectedRow, self.selectedColumn)
 
         CustTypeData = self.CustomerTypeCombo.currentText()
-
         Cost = 0
         if CustTypeData == 'Special Guest':
             Cost = SpecialGuest
@@ -215,8 +214,17 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         elif CustTypeData == 'Reduced':
             Cost = Reduced
 
+
+
+        CostStr = str(Cost)
+        BookingIDStr = str(BookingID)
+        SeatIdStr = str(SeatId)
+        SQLPerfStr = str(SQLPerf)
+        SQLCustStr = str(SQLCust)
+
         #Need to add the SeatID to the statement below
-        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingID + "," + SeatId + "," + SQLPerf + "," + SQLCust + "," + Cost + "," + CustTypeData + ")"
+        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingIDStr + "," + SeatIdStr + "," + SQLPerfStr + "," + SQLCustStr + "," + CostStr + "," + CustTypeData + ")"
+        print(SQLBooking)
         self.db_connection.open()
         self.db_connection.execute(SQLBooking)
         self.db_connection.commit()
