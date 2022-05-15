@@ -112,7 +112,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
     def seatID_Combo(self):
         print("seats combo")
         #Update table so that the data in it displays all the bookings that Seat has
-        SeatIDText = self.CustType_Combo.currentText()
+        SeatIDText = self.SeatID_Combo.currentText()
         SQLStatement = "SELECT * FROM tBooking WHERE SeatID=(SELECT SeatID FROM tSeats WHERE SeatID="+SeatIDText+")"
         print(SQLStatement)
         self.db_connection.open()
