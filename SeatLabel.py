@@ -34,8 +34,10 @@ class SeatLabel(QLabel):
     def available(self, seatFree):
         if seatFree:
             self.setText("Free")
+            self.setStyleSheet("background-color: green")
         else:
             self.setText("Taken")
+            self.setStyleSheet("background-color: red")
 
     def mousePressEvent(self, event):
         #emit the signal

@@ -19,36 +19,36 @@ class RecordsWindow(QMainWindow, Ui_Records):
         super(RecordsWindow, self).__init__()
         self.db_connection = SQLServerAccess()
         self.setupUi(self)
-        self.BookingData()
         self.SeatsData()
         self.PerformanceData()
         self.CustomerData()
+        self.FillTable()
         self.connectSignalsSlots()
+
+        self.CustType_Combo.addItem(" ")
+        self.CustType_Combo.addItem("Special Guest")
+        self.CustType_Combo.addItem("Reduced")
+        self.CustType_Combo.addItem("Standard")
 
     def connectSignalsSlots(self):
         """ Connects the Qt UI signals to the slots (methods) that perform the work """
         # connect the combo-boxes and buttons (signals and slots)
-        self.Customer_Combo.currentIndexChanged.connect(self.Cust_Combo)
-        self.Performance_Combo.currentIndexChanged.connect(self.Perf_Combo)
-        self.SeatID_Combo.currentIndexChanged.connect(self.seatID_Combo)
-        self.CustType_Combo.currentIndexChanged.connect(self.custType_Combo)
+        self.Customer_Combo.currentIndexChanged.connect(self.FillTable)
+        self.Performance_Combo.currentIndexChanged.connect(self.FillTable)
+        self.SeatID_Combo.currentIndexChanged.connect(self.FillTable)
+        self.CustType_Combo.currentIndexChanged.connect(self.FillTable)
 
-    def BookingData(self):
-        # The database is opened and a single query is executed then the database is closed.
-        # Executing a subsequent query before close and open does not seem to work.
-        BookingSQL = "SELECT * FROM tBooking"
-        # dump all the data into the table
-        # call SQLServerAccess to get data from db
-        self.db_connection.open()
-        # extract all data using cursor and put in UI
-        Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
-        for item in Booking_cursor:
-            self.RecordsTable.update(item)
-        self.db_connection.close()
+    def configureTable(self):
+        self.RecordsTable.clear()
+        self.RecordsTable.setColumnCount(7)
+        self.RecordsTable.horizontalHeader()
+        labels = ("Name", "Surname", "Performance", "Time", "Seat", "Type", "Cost")
+        self.RecordsTable.setHorizontalHeaderLabels(labels)
 
     def PerformanceData(self):
         self.db_connection.open()
         Performance_cursor = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
+        self.Performance_Combo.addItem(' ')
         for item in Performance_cursor:
             # Get the Time of the performance - the index 1 is the second column which is Performance_Time
             performanceTime = item[1].strftime('%H:%M')
@@ -61,6 +61,7 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def SeatsData(self):
         self.db_connection.open()
+        self.SeatID_Combo.addItem(' ')
         SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
         for item in SeatID_cursor:
             SeatID = item[0]
@@ -69,68 +70,67 @@ class RecordsWindow(QMainWindow, Ui_Records):
 
     def CustomerData(self):
         self.db_connection.open()
+        self.Customer_Combo.addItem(' ')
         Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")
         for item in Cust_cursor:
             FirstName = item[1]
             Surname = item[2]
             fullname = FirstName+" "+Surname
             self.Customer_Combo.addItem(fullname)
-
         self.db_connection.close()
 
-    def Cust_Combo(self):
-        print("combo cust")
-        #Update table so that the data in it displays all the bookings that customer has made
-        CustText = self.Customer_Combo.currentText()
-        name = CustText.split(" ")
-        firstname = name[0]
-        surname = name[1]
-        SQLStatement = "SELECT * FROM tBooking WHERE CustomerID =(SELECT CustomerID FROM tCustomer WHERE First_Name = "+firstname+", Surname = "+surname
-        self.db_connection.open()
-        # extract all data using cursor and put in UI
-        BookingCustName_cursor = self.db_connection.execute(SQLStatement).fetchall()
-        for item in BookingCustName_cursor:
-            self.RecordsTable.update(item)
-        self.db_connection.close()
-
-    def Perf_Combo(self):
-        print("combo perf")
+    def FillTable(self):
+        SQLStatement = "SELECT * FROM tBooking "
         #Update table so that the data in it displays all the bookings that performance has
-        PerfText = self.Performance_Combo.currentText()
-        performances = PerfText.split(" ")
-        time = performances[0]
-        date = performances[1]
-        SQLStatement = "SELECT * FROM tBooking WHERE PerformanceID=(SELECT PerformanceID FROM tPerformance WHERE Performance_Time='"+time+"' AND Performance_Date = '" + date+"')"
-        print(SQLStatement)
-        self.db_connection.open()
-        # extract all data using cursor and put in UI
-        Performance_cursor = self.db_connection.execute(SQLStatement).fetchall()
-        for item in Performance_cursor:
-            self.RecordsTable.update(item)
-        self.db_connection.close()
+        PerfIndex = self.Performance_Combo.currentIndex() - 1
+        if PerfIndex >= 0:
+            SQLStatement = SQLStatement + " WHERE PerformanceID=" + str(PerfIndex)
 
-    def seatID_Combo(self):
-        print("seats combo")
-        #Update table so that the data in it displays all the bookings that Seat has
-        SeatIDText = self.SeatID_Combo.currentText()
-        SQLStatement = "SELECT * FROM tBooking WHERE SeatID=(SELECT SeatID FROM tSeats WHERE SeatID="+SeatIDText+")"
-        print(SQLStatement)
-        self.db_connection.open()
-        # extract all data using cursor and put in UI
-        SeatID_cursor = self.db_connection.execute(SQLStatement).fetchall()
-        for item in SeatID_cursor:
-            self.RecordsTable.update(item)
-        self.db_connection.close()
+        CustomerIndex = self.Customer_Combo.currentIndex() - 1
+        if CustomerIndex >= 0:
+            if PerfIndex >= 0:
+                SQLStatement = SQLStatement + " AND "
+            else:
+                SQLStatement = SQLStatement + " WHERE "
+            SQLStatement = SQLStatement + " CustomerID=" + str(CustomerIndex)
 
-    def custType_Combo(self):
-        print("time combo")
-        #Update table so that the data in it displays all the bookings that customer type has
-        CustTypeText = self.CustType_Combo.currentText()
-        SQLStatement = "SELECT * FROM tBooking WHERE Customer_Type='"+CustTypeText+"'"
+        CustomerTypeIndex = self.CustType_Combo.currentIndex() - 1
+        if CustomerTypeIndex >= 0:
+            if PerfIndex >= 0 or CustomerIndex >= 0:
+                SQLStatement = SQLStatement + " AND "
+            else:
+                SQLStatement = SQLStatement + " WHERE "
+            SQLStatement = SQLStatement + " Customer_Type='" + str(self.CustType_Combo.currentText()) + "'"
+
+        print(SQLStatement)
         self.db_connection.open()
         # extract all data using cursor and put in UI
-        print(SQLStatement)
-        CustType_cursor = self.db_connection.execute(SQLStatement).fetchall()
-        for item in CustType_cursor:
-            self.RecordsTable.update(item)
+        bookings_cur = self.db_connection.execute(SQLStatement).fetchall()
+        rowCount = len(bookings_cur)
+        self.configureTable()
+        self.RecordsTable.setRowCount(rowCount)
+        rowNumber = 0
+        for booking in bookings_cur:
+            seatId = booking[1]
+            customerId = booking[2]
+            performanceId = booking[3]
+            cost = booking[4]
+            customerType = booking[5]
+
+            # "Name", "Surname", "Performance", "Time", "Seat", "Type", "Cost"
+            customer_cur = self.db_connection.execute("SELECT * FROM tCustomer WHERE CustomerID=" + str(customerId)).fetchall()
+            for customer in customer_cur:
+                self.RecordsTable.setItem(rowNumber, 0, QTableWidgetItem(str(customer[1])))
+                self.RecordsTable.setItem(rowNumber, 1, QTableWidgetItem(str(customer[2])))
+            performance_cur = self.db_connection.execute("SELECT * FROM tPerformance WHERE PerformanceID=" + str(performanceId)).fetchall()
+            for performance in performance_cur:
+                self.RecordsTable.setItem(rowNumber, 2, QTableWidgetItem(str(performance[1])))
+                self.RecordsTable.setItem(rowNumber, 3, QTableWidgetItem(str(performance[2])))
+
+            self.RecordsTable.setItem(rowNumber, 4, QTableWidgetItem(str(seatId)))
+            self.RecordsTable.setItem(rowNumber, 5, QTableWidgetItem(customerType))
+            self.RecordsTable.setItem(rowNumber, 6, QTableWidgetItem(str(cost)))
+
+            rowNumber = rowNumber + 1
+
         self.db_connection.close()
