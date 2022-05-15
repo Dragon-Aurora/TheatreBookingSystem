@@ -30,8 +30,10 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         """
         super(BookingWindow, self).__init__()
 
+        self.seats = {}
         self.selectedRow = -1
         self.selectedColumn = -1
+        self.performanceId = 0
         self.numberOfSeatsAvailable = 0
         # call SQLServerAccess to get data from db
         self.db_connection = SQLServerAccess.SQLServerAccess()
@@ -39,7 +41,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.maxBookingID = self.SeatMaxID()
         self.seatInfoWindow = SeatInfoWindow(self)
         self.CostDisplay()
-        self.BookingData()
         self.CustData()
         self.PerfData()
         self.CustTypeData()
@@ -56,12 +57,13 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.db_connection.close()
         return MaxID
 
-    def SeatAvailable(self, seatID):
+    def SeatAvailable(self, seatID, performanceId):
         self.db_connection.open()
         cursor = self.db_connection.execute("SELECT * FROM tBooking").fetchall()
         for cur in cursor:
             id = cur[1]
-            if id == seatID:
+            performance = cur[3]
+            if id == seatID and performance == performanceId:
                 self.db_connection.close()
                 return False
         self.db_connection.close()
@@ -87,9 +89,10 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
                 seat.setAlignment(QtCore.Qt.AlignCenter)
                 seat.setObjectName("row " + str(row) + "col " + str(column))
                 seat.setRowColumn(row, column)
-
                 seatId = self.seatIdent(row, column)
-                seatAvailable = self.SeatAvailable(seatId)
+                self.seats[seatId] = seat
+
+                seatAvailable = self.SeatAvailable(seatId, self.performanceId)
                 seat.available(seatAvailable)
                 if seatAvailable:
                     seats += 1
@@ -103,11 +106,30 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.updateNumberOfSeats()
 
         self.SeatIDOutput.setText("None")
-
         self.Book_PushButton.setEnabled(False)
         # Connects booking button
         self.Book_PushButton.clicked.connect(self.Booking_Save)
         self.CustomerTypeCombo.currentTextChanged.connect(self.CostDisplay)
+        self.Performance_comboBox.currentTextChanged.connect(self.PerformanceChanged)
+
+    def PerformanceChanged(self):
+        selectedPerformance = self.Performance_comboBox.currentIndex()
+        self.performanceId = selectedPerformance
+        seats = 0
+        for row in range(0, 10):
+            for column in range(0, 20):
+                seatId = self.seatIdent(row, column)
+                seat = self.seats[seatId]
+
+                seatAvailable = self.SeatAvailable(seatId, self.performanceId)
+                seat.available(seatAvailable)
+                if seatAvailable:
+                    seats += 1
+        self.numberOfSeatsAvailable = seats
+        self.updateNumberOfSeats()
+        self.seatInfoWindow.hide()
+        self.SeatIDOutput.setText("None")
+        self.Book_PushButton.setEnabled(False)
 
     def updateNumberOfSeats(self):
         self.SeatsSoldOutput.setText(str((MaxRows * MaxColumns) - self.numberOfSeatsAvailable))
@@ -124,17 +146,6 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
             Cost = Reduced
         CostStr = str(Cost)
         self.CostOutput.setText("£" + CostStr)
-
-
-    def BookingData(self):
-        BookingSQL = "SELECT * FROM tBooking"
-        # dump all the data into the table
-        # self.db_connection.open()
-        # extract all data using cursor and put in UI
-        """ Booking_cursor = self.db_connection.execute(BookingSQL).fetchall()
-        Performance_cursor = self.db_connection.execute("SELECT * FROM tPerformance").fetchall()
-        SeatID_cursor = self.db_connection.execute("SELECT * FROM tSeats").fetchall()
-        Cust_cursor = self.db_connection.execute("SELECT * FROM tCustomer")"""
 
     def PerfData(self):
         self.db_connection.open()
@@ -172,14 +183,14 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         # Get the seat ID
         seatId = self.seatIdent(row, column)
         # Display the Seat information for the seat at row column
-        self.seatInfoWindow.loadDisplay(row, column, seatId)
+        self.seatInfoWindow.loadDisplay(row, column, seatId, self.performanceId)
         self.seatInfoWindow.show()
         self.seatInfoWindow.raise_()
         # Display which seat has been selected
         self.SeatIDOutput.setText("row " + str(row) + " col " + str(column))
 
         # Enable/disable the Book button
-        if self.SeatAvailable(seatId):
+        if self.SeatAvailable(seatId,self.performanceId):
             self.Book_PushButton.setEnabled(True)
         else:
             self.Book_PushButton.setEnabled(False)
@@ -219,7 +230,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.db_connection.open()
         print(SQLCust)
         CustomerId = -1
-        SQLCustEx = self.db_connection.execute(SQLCust)
+        SQLCustEx = self.db_connection.execute(SQLCust).fetchall()
         for cur in SQLCustEx:
             CustomerId = cur[0]
         self.db_connection.close()
@@ -227,7 +238,7 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         self.db_connection.open()
         print(SQLPerf)
         PerformanceId = -1
-        SQLPerfEx = self.db_connection.execute(SQLPerf)
+        SQLPerfEx = self.db_connection.execute(SQLPerf).fetchall()
         for cur1 in SQLPerfEx:
             PerformanceId = cur1[0]
         self.db_connection.close()
@@ -239,8 +250,8 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         SQLCustStr = str(CustomerId)
 
         # Need to add the SeatID to the statement below
-        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingIDStr + "," + SeatIdStr + "," + SQLPerfStr + "," + \
-                     SQLCustStr + "," + CostStr + ", '" + CustTypeData + "')"
+        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingIDStr + "," + SeatIdStr + "," + SQLCustStr + "," + \
+                     SQLPerfStr + "," + CostStr + ", '" + CustTypeData + "')"
         print(SQLBooking)
         # Save to booking to database
         self.db_connection.open()
@@ -256,10 +267,8 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
 
     def seatTaken(self, row, column, SeatId):
         self.Book_PushButton.setEnabled(False)
-        item = self.SeatLayout.itemAtPosition(row, column)
-        seat = SeatLabel(item.widget())
+        seat = self.seats[SeatId]
         seat.available(False)
-        #
 
 
 if __name__ == "__main__":
