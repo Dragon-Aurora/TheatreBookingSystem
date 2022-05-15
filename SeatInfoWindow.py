@@ -2,7 +2,7 @@ from SeatInfo import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from SQLServerAccess import *
+import SQLServerAccess
 
 
 class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
@@ -19,20 +19,38 @@ class SeatInfoWindow(QMainWindow, Ui_SeatInfo):
         """
         super(SeatInfoWindow, self).__init__()
         self.setupUi(self)
+        self.db_connection = SQLServerAccess.SQLServerAccess()
 
-    def SQLData(self):
-        self.cnxn.open()
-        booking_cursor = self.cnxn.execute("SELECT * FROM tBooking").fetchall()
-        customer_cursor = self.cnxn.execute("SELECT * FROM tCustomer").fetchall()
-        performance_cursor = self.cnxn.execute("SELECT * FROM tPerformance").fetchall()
-        seatsID_cursor = self.cnxn.execute("SELECT * FROM tSeatsID").fetchall()
-        self.cnxn.close()
+    def loadDisplay(self, row, column, seatID, performanceId):
+        """Information relating to the specific seatID used is to be displayed"""
+        customerId = -1
+        bookingtype = ""
+        found = False
+        self.db_connection.open()
+        booking_cursor = self.db_connection.execute("SELECT * FROM tBooking").fetchall()
+        for cur in booking_cursor:
+            id = cur[1]
+            performance = cur[3]
+            if id == seatID and performance == performanceId:
+                customerId = cur[2]
+                bookingtype = cur[5]
+                found = True
+                break
+        self.db_connection.close()
 
-    def loadDisplay(self, row, column):
-        print("load display ", row, column)
-        #Information relating to the specific seatID used is to be displayed
-        seatID = (row*20)+column
-        self.customer.setText("Damian")
-        self.phoneNumber.setText("01403 273173")
-        self.customerType.setText("Parent")
-        self.seatId.setText(str(row) + " " + str(column))
+        self.customer.setText("Seat Free")
+        self.phoneNumber.setText("")
+        self.customerType.setText("")
+
+        if found:
+            self.db_connection.open()
+            customer_cursor = self.db_connection.execute("SELECT * FROM tCustomer WHERE CustomerID=" + str(customerId)).fetchall()
+
+            for cur in customer_cursor:
+                self.customer.setText(cur[1] + " " + cur[2])
+                self.phoneNumber.setText(cur[3])
+                self.customerType.setText(bookingtype)
+            self.db_connection.close()
+        self.seatId.setText("row " + str(row) + " col " + str(column))
+
+
