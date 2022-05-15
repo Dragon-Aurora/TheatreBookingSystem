@@ -91,7 +91,6 @@ class SQLServerAccess:
     def open(self):
         try:
             self.cnxn = pyodbc.connect(cs)
-            print("Connected")
 
         except pyodbc.DatabaseError as err:
             print("Error: ")
