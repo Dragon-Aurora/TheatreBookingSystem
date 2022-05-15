@@ -196,12 +196,14 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         performances = PerfData.split(" ")
         time = performances[0]
         date = performances[1]
-        SQLPerf = "SELECT PerformanceID FROM tPerformance WHERE Performance_Time = '" + time + "',Performance_Date = '" + date + "'"
+        SQLPerf = "SELECT PerformanceID FROM tPerformance WHERE Performance_Time = '" + time + \
+                  "' AND Performance_Date = '" + date + "'"
 
         name = CustData.split(" ")
         firstname = name[0]
         surname = name[1]
-        SQLCust = "SELECT CustomerID FROM tCustomer WHERE First_Name = '" + firstname + "', Surname = '" + surname + "'"
+        SQLCust = "SELECT CustomerID FROM tCustomer WHERE First_Name = '" + firstname + "' AND Surname = '" + \
+                  surname + "'"
 
         SeatId = self.seatIdent(self.selectedRow, self.selectedColumn)
 
@@ -214,22 +216,39 @@ class BookingWindow(QMainWindow, Ui_SeatBooking):
         elif CustTypeData == 'Reduced':
             Cost = Reduced
 
+        self.db_connection.open()
+        print(SQLCust)
+        CustomerId = -1
+        SQLCustEx = self.db_connection.execute(SQLCust)
+        for cur in SQLCustEx:
+            CustomerId = cur[0]
+        self.db_connection.close()
 
+        self.db_connection.open()
+        print(SQLPerf)
+        PerformanceId = -1
+        SQLPerfEx = self.db_connection.execute(SQLPerf)
+        for cur1 in SQLPerfEx:
+            PerformanceId = cur1[0]
+        self.db_connection.close()
 
         CostStr = str(Cost)
         BookingIDStr = str(BookingID)
         SeatIdStr = str(SeatId)
-        SQLPerfStr = str(SQLPerf)
-        SQLCustStr = str(SQLCust)
+        SQLPerfStr = str(PerformanceId)
+        SQLCustStr = str(CustomerId)
 
-        #Need to add the SeatID to the statement below
-        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingIDStr + "," + SeatIdStr + "," + SQLPerfStr + "," + SQLCustStr + "," + CostStr + "," + CustTypeData + ")"
+        # Need to add the SeatID to the statement below
+        SQLBooking = "INSERT INTO tBooking VALUES (" + BookingIDStr + "," + SeatIdStr + "," + SQLPerfStr + "," + \
+                     SQLCustStr + "," + CostStr + ", '" + CustTypeData + "')"
         print(SQLBooking)
+        # Save to booking to database
         self.db_connection.open()
         self.db_connection.execute(SQLBooking)
         self.db_connection.commit()
         self.db_connection.close()
 
+        # update data on display
         self.seatTaken(self.selectedRow, self.selectedColumn, SeatId)
 
         self.numberOfSeatsAvailable = self.numberOfSeatsAvailable - 1
